@@ -101,9 +101,14 @@ export default function TextChatBox() {
       }
     };
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // console.log(socket);
+    // 25 message limit
+    if (messages.length >= 25) {
+       alert("You have reached the message limit");
+       return;
+    }
+
     if (!socket) return;
     
     const message: Message = {
