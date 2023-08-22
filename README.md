@@ -1,4 +1,4 @@
-**PyChat** is a simple Chatbot running on open source LLMs hosted on HuggingFace and accessed through Google Colab. 
+**PyChat** is a simple Chatbot running on open source LLMs hosted on HuggingFace and accessed through [Google Colab](https://colab.research.google.com/drive/1BkL7zYVYtn0JPYKMPJ0tJmK-zMtINx0P?usp=sharing&authuser=1#scrollTo=T6oyrr4X0wc2). 
 
 ## Table of Contents
 - [Installation](#installation)
@@ -15,6 +15,7 @@
 3. Add collab's wss link to `.env` file
 4. Run the app
     ```npm run dev```
+5. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 
 ## Technologies
 - React
