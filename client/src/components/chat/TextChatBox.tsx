@@ -40,7 +40,7 @@ export default function TextChatBox() {
     {
       try {
         const thisMessage = {
-          prompt: text,
+          prompt: ` user: ${text} bot: `,
           max_new_tokens: 250,
           auto_max_new_tokens: false,
           history: history,
