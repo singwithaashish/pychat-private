@@ -59,8 +59,11 @@
 ```
 
 ## Future Work
-- [ ] Add Wisper Text to Speech
+- [ ] Add whisper Text to Speech
 - [ ] Add Speech to Text
 
 ## Screenshots
+![Screenshot from 2023-08-22 18-52-03](https://github.com/singwithaashish/pyChat/assets/52033403/fa246e56-628f-4879-9aee-87e1421946f4)
+![Screenshot from 2023-08-22 19-36-52](https://github.com/singwithaashish/pyChat/assets/52033403/fa922be6-31b3-4ae0-b5a6-dff8a575a415)
+![Screenshot from 2023-08-22 19-36-59](https://github.com/singwithaashish/pyChat/assets/52033403/65a39a69-61f7-40ae-86d8-3ea278e5c75c)
 
