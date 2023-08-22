@@ -64,6 +64,7 @@
 
 ## Screenshots
 ![Screenshot from 2023-08-22 18-52-03](https://github.com/singwithaashish/pyChat/assets/52033403/fa246e56-628f-4879-9aee-87e1421946f4)
-![Screenshot from 2023-08-22 19-36-52](https://github.com/singwithaashish/pyChat/assets/52033403/fa922be6-31b3-4ae0-b5a6-dff8a575a415)
-![Screenshot from 2023-08-22 19-36-59](https://github.com/singwithaashish/pyChat/assets/52033403/65a39a69-61f7-40ae-86d8-3ea278e5c75c)
+![Screenshot from 2023-08-22 19-45-23](https://github.com/singwithaashish/pyChat/assets/52033403/38e456fc-ca9a-41ee-bf91-439b36561b74)
+![Screenshot from 2023-08-22 19-45-42](https://github.com/singwithaashish/pyChat/assets/52033403/a61b6637-01a5-45e7-889b-f4c0edf6306b)
+
 
