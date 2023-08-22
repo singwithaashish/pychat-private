@@ -12,7 +12,7 @@
    ```git clone```
 2. Install requirements
     ```cd client && npm install```
-3. Add collab's wss link to `.env` file
+3. Add collab's wss link to `.env` file as `VITE_SOCKET_URL=<your wss URL>`
 4. Run the app
     ```npm run dev```
 5. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
@@ -27,9 +27,7 @@
 ```
 ├── client
 │   ├── public
-│   │   ├── favicon.ico
-│   │   ├── index.html
-│   │   └── manifest.json
+│   │   └── vite.svg
 │   ├── src
 │   │   ├── components
 │   │   │   ├── chat
