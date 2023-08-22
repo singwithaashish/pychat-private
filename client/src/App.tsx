@@ -2,7 +2,7 @@ import Header from "./components/layout/Header";
 import TextChatBox from "./components/chat/TextChatBox";
 import { useEffect } from "react";
 
-let socket: WebSocket | null = null;
+// let socket: WebSocket | null = null;
 
 function App() {
   // useEffect(() => {

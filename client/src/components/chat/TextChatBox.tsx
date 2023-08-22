@@ -16,7 +16,7 @@ export default function TextChatBox() {
 
   useEffect(() => {
     socket = new WebSocket(
-      "wss://sends-classic-americas-witnesses.trycloudflare.com/api/v1/stream"
+      "wss://manhattan-observe-macromedia-moving.trycloudflare.com/api/v1/stream"
     );
     socket.onopen = () => {
       console.log("Connected to server");
@@ -44,10 +44,10 @@ export default function TextChatBox() {
           max_new_tokens: 250,
           auto_max_new_tokens: false,
           history: history,
-          mode: "instruct", // Valid options: 'chat', 'chat-instruct', 'instruct'
+          mode: "chat", // Valid options: 'chat', 'chat-instruct', 'instruct'
           character: "Example",
-          instruction_template: "Vicuna-v1.1", // Will get autodetected if unset
-          your_name: "You",
+          // instruction_template: "Vicuna-v1.1", // Will get autodetected if unset
+          your_name: "User",
           // 'name1': 'name of user', # Optional
           // 'name2': 'name of character', # Optional
           // 'context': 'character context', # Optional
@@ -143,7 +143,7 @@ export default function TextChatBox() {
       </div>
       <form
         onSubmit={(e) => onSubmit(e)}
-        className="w-full h-[10vh] p-1 grid grid-cols-12"
+        className="w-full h-[10vh] p-1 grid grid-cols-12 gap-4"
       >
         <input
           type="text"
@@ -153,7 +153,7 @@ export default function TextChatBox() {
           placeholder="Enter your text"
           className="bg-white px-5 shadow rounded-lg col-span-10"
         />
-        <button type="submit" className="bg-gray-100 rounded-lg col-span-2">
+        <button type="submit" className={" rounded-lg col-span-2 " + (text ? "bg-green-400" : "bg-gray-200")}>
           Send
         </button>
       </form>
