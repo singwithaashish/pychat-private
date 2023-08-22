@@ -1,4 +1,4 @@
-**PyChat** is a simple Chatbot running on open source LLMs hosted on HuggingFace and accessed through [Google Colab](https://colab.research.google.com/drive/1BkL7zYVYtn0JPYKMPJ0tJmK-zMtINx0P?usp=sharing&authuser=1#scrollTo=T6oyrr4X0wc2). 
+**PyChat** is a simple Chatbot running on open-source LLMs accessed through [Google Colab](https://colab.research.google.com/drive/1BkL7zYVYtn0JPYKMPJ0tJmK-zMtINx0P?usp=sharing&authuser=1#scrollTo=T6oyrr4X0wc2). 
 
 ## Table of Contents
 - [Installation](#installation)
