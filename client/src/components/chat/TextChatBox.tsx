@@ -2,32 +2,34 @@ import { useEffect, useState } from "react";
 import TextMessage from "./TextMessage";
 import { Message } from "../../typings";
 
-// interface TextChatBoxProps {
-//   socket: WebSocket | null;
-// }
+interface TextChatBoxProps {
+  socket: WebSocket | null;
+}
 
-let socket: WebSocket | null = null;
+// let socket: WebSocket | null = null;
 
-export default function TextChatBox() {
+export default function TextChatBox(
+  { socket }: TextChatBoxProps
+) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState<string>("");
   // const [streamResponse, setStreamResponse] = useState<string>("");
   // const [socketState, setSocketState] = useState<WebSocket | null>(socket);
 
-  useEffect(() => {
-    socket = new WebSocket(
-      import.meta.env.VITE_SOCKET_URL as string
-    );
-    socket.onopen = () => {
-      console.log("Connected to server");
-    };
-    socket.onmessage = (e) => {
-      console.log(e.data);
-    };
-    socket.onclose = () => {
-      console.log("Disconnected from server");
-    };
-  }, []);
+  // useEffect(() => {
+  //   socket = new WebSocket(
+  //     import.meta.env.VITE_SOCKET_URL as string
+  //   );
+  //   socket.onopen = () => {
+  //     console.log("Connected to server");
+  //   };
+  //   socket.onmessage = (e) => {
+  //     console.log(e.data);
+  //   };
+  //   socket.onclose = () => {
+  //     console.log("Disconnected from server");
+  //   };
+  // }, []);
 
   let history = {
     internal: [],
@@ -38,9 +40,10 @@ export default function TextChatBox() {
     // history: string[] = [],
     // text: string = "Hello, how are you?"
     {
+      console.log(history);
       try {
         const thisMessage = {
-          prompt: ` user: ${text} bot: `,
+          prompt: `### User message: ${text} ### Response:`,
           max_new_tokens: 250,
           auto_max_new_tokens: false,
           history: history,
@@ -48,18 +51,18 @@ export default function TextChatBox() {
           character: "Example",
           instruction_template: "Vicuna-v1.1", // Will get autodetected if unset
           your_name: "User",
-          // 'name1': 'name of user', # Optional
-          // 'name2': 'name of character', # Optional
-          // 'context': 'character context', # Optional
-          // 'greeting': 'greeting', # Optional
-          // 'name1_instruct': 'You', # Optional
-          // 'name2_instruct': 'Assistant', # Optional
-          // 'context_instruct': 'context_instruct', # Optional
-          // 'turn_template': 'turn_template', # Optional
+          // 'name1': 'name of user', // Optional
+          // 'name2': 'name of character', // Optional
+          // 'context': 'character context', // Optional
+          // 'greeting': 'greeting', // Optional
+          // 'name1_instruct': 'You', // Optional
+          // 'name2_instruct': 'Assistant', // Optional
+          // 'context_instruct': 'context_instruct', // Optional
+          'turn_template': 'turn_template', // Optional
           regenerate: false,
           _continue: false,
           chat_instruct_command:
-            'Continue the chat dialogue below. Write a single reply for the character "<|character|>".\n\n<|prompt|>',
+            'Write a single reply to the user\'s query below. Only give onc answer "<|character|>".\n\n<|prompt|>',
 
           do_sample: true,
           preset: "None",
@@ -103,11 +106,11 @@ export default function TextChatBox() {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // 25 message limit
-    if (messages.length >= 25) {
-       alert("You have reached the message limit");
-       return;
-    }
+    // ! 25 message limit
+    // if (messages.length >= 25) {
+    //    alert("You have reached the message limit");
+    //    return;
+    // }
 
     if (!socket) return;
     
@@ -132,7 +135,7 @@ export default function TextChatBox() {
 
       if (res.event === "text_stream") {
        
-        history.internal.push(res.text as never);
+        history.internal = messages.map((message) => message.text) as never;
         lastMessage.text += res.text;
         setMessages([...messages, message, lastMessage]);
       } 

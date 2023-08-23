@@ -9,7 +9,7 @@ export default function TextMessage({message}: {message: Message}) {
         (message.sender == "user" ? " ml-auto rounded-br-none" : " mr-auto rounded-bl-none")
       }
     >
-      <p className="text-gray-600">{message.text}</p>
+      <p className="text-gray-600  whitespace-pre-line">{message.text}</p>
     </div>
   );
 }
