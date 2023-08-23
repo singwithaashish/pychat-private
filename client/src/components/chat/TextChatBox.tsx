@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import TextMessage from "./TextMessage";
 import { Message } from "../../typings";
 
-interface TextChatBoxProps {
-  socket: WebSocket | null;
-}
+// interface TextChatBoxProps {
+//   socket: WebSocket | null;
+// }
 
 let socket: WebSocket | null = null;
 
 export default function TextChatBox() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState<string>("");
-  const [streamResponse, setStreamResponse] = useState<string>("");
+  // const [streamResponse, setStreamResponse] = useState<string>("");
   // const [socketState, setSocketState] = useState<WebSocket | null>(socket);
 
   useEffect(() => {
     socket = new WebSocket(
-      "wss://manhattan-observe-macromedia-moving.trycloudflare.com/api/v1/stream"
+      import.meta.env.VITE_SOCKET_URL as string
     );
     socket.onopen = () => {
       console.log("Connected to server");
@@ -44,9 +44,9 @@ export default function TextChatBox() {
           max_new_tokens: 250,
           auto_max_new_tokens: false,
           history: history,
-          mode: "chat", // Valid options: 'chat', 'chat-instruct', 'instruct'
+          mode: "chat-instruct", // Valid options: 'chat', 'chat-instruct', 'instruct'
           character: "Example",
-          // instruction_template: "Vicuna-v1.1", // Will get autodetected if unset
+          instruction_template: "Vicuna-v1.1", // Will get autodetected if unset
           your_name: "User",
           // 'name1': 'name of user', # Optional
           // 'name2': 'name of character', # Optional
@@ -85,7 +85,7 @@ export default function TextChatBox() {
           mirostat_eta: 0.1,
 
           negative_prompt: "",
-          add_bos_token: true,
+          // add_bos_token: true,
           seed: -1,
           ban_eos_token: false,
           truncation_length: 2048,
@@ -145,6 +145,14 @@ export default function TextChatBox() {
         {messages.map((message) => (
           <TextMessage key={message.id} message={message} />
         ))}
+        {
+          messages.length === 0 && (
+            <p className='text-center text-gray-400 font-bold'>
+              no messages yet
+            </p>
+          )
+
+        }
       </div>
       <form
         onSubmit={(e) => onSubmit(e)}
