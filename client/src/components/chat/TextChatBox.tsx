@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import TextMessage from "./TextMessage";
 import { Message } from "../../typings";
 
@@ -8,33 +8,15 @@ interface TextChatBoxProps {
 
 // let socket: WebSocket | null = null;
 
-export default function TextChatBox(
-  { socket }: TextChatBoxProps
-) {
+export default function TextChatBox({ socket }: TextChatBoxProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState<string>("");
-  // const [streamResponse, setStreamResponse] = useState<string>("");
-  // const [socketState, setSocketState] = useState<WebSocket | null>(socket);
-
-  // useEffect(() => {
-  //   socket = new WebSocket(
-  //     import.meta.env.VITE_SOCKET_URL as string
-  //   );
-  //   socket.onopen = () => {
-  //     console.log("Connected to server");
-  //   };
-  //   socket.onmessage = (e) => {
-  //     console.log(e.data);
-  //   };
-  //   socket.onclose = () => {
-  //     console.log("Disconnected from server");
-  //   };
-  // }, []);
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
 
   let history = {
     internal: [],
     visible: [],
-  };
+  } as any;
 
   const onMessageSend = () =>
     // history: string[] = [],
@@ -58,7 +40,7 @@ export default function TextChatBox(
           // 'name1_instruct': 'You', // Optional
           // 'name2_instruct': 'Assistant', // Optional
           // 'context_instruct': 'context_instruct', // Optional
-          'turn_template': 'turn_template', // Optional
+          turn_template: "turn_template", // Optional
           regenerate: false,
           _continue: false,
           chat_instruct_command:
@@ -104,23 +86,32 @@ export default function TextChatBox(
       }
     };
 
+  useEffect(() => {
+    // This will run every time the `chat` state changes
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // ! 25 message limit
-    // if (messages.length >= 25) {
-    //    alert("You have reached the message limit");
-    //    return;
-    // }
+    if (messages.length >= 25) {
+      alert("You have reached the message limit");
+      return;
+    }
 
     if (!socket) return;
-    
+
+    history.internal.push([text, ""]);
+    history.visible.push([text, ""]);
+
     const message: Message = {
       id: messages.length,
       text,
       createdAt: new Date(),
       sender: "user",
     };
-    
 
     // machine responds
     onMessageSend();
@@ -133,13 +124,18 @@ export default function TextChatBox(
     socket.onmessage = (e) => {
       const res = JSON.parse(e.data);
 
+      // console.log(res);
+
       if (res.event === "text_stream") {
-       
-        history.internal = messages.map((message) => message.text) as never;
         lastMessage.text += res.text;
         setMessages([...messages, message, lastMessage]);
-      } 
+      }else if (res.event === "stream_end") {
+        // setMessages([...messages, message, lastMessage]);
+        history.internal[history.internal.length - 1][1] = lastMessage.text;
+        history.visible[history.visible.length - 1][1] = lastMessage.text;
+      }
     };
+
     setText("");
   };
   return (
@@ -148,14 +144,10 @@ export default function TextChatBox(
         {messages.map((message) => (
           <TextMessage key={message.id} message={message} />
         ))}
-        {
-          messages.length === 0 && (
-            <p className='text-center text-gray-400 font-bold'>
-              no messages yet
-            </p>
-          )
-
-        }
+        {messages.length === 0 && (
+          <p className="text-center text-gray-400 font-bold">no messages yet</p>
+        )}
+        <div ref={messagesEndRef} />
       </div>
       <form
         onSubmit={(e) => onSubmit(e)}
@@ -169,7 +161,12 @@ export default function TextChatBox(
           placeholder="Enter your text"
           className="bg-white px-5 shadow rounded-lg col-span-10"
         />
-        <button type="submit" className={" rounded-lg col-span-2 " + (text ? "bg-green-400" : "bg-gray-200")}>
+        <button
+          type="submit"
+          className={
+            " rounded-lg col-span-2 " + (text ? "bg-green-400" : "bg-gray-200")
+          }
+        >
           Send
         </button>
       </form>

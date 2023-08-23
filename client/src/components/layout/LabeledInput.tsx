@@ -21,11 +21,11 @@ export default function LabeledInput({
   return (
     <div>
       <div className="mb-2 block">
-        <label htmlFor={id} className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label htmlFor={id} className="text-sm font-medium">
             {label}
         </label>
       </div>
-      <input id={id} type={type} placeholder={placeholder} required={required} value={value} onChange={onChange} className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />
+      <input id={id} type={type} placeholder={placeholder} required={required} value={value} onChange={onChange} className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md shadow-sm appearance-none text-black focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />
     </div>
   );
 }

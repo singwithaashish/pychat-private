@@ -24,10 +24,10 @@ function Register() {
   };
 
   return (
-    <div className="grid place-items-center h-screen bg-blue-200">
+    <div className="grid place-items-center h-screen bg-gray-200">
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 min-w-[50vw] bg-blue-400 p-5 rounded"
+        className="space-y-6 min-w-[50vw] bg-gray-600 text-white p-5 rounded"
       >
         <LabeledInput
           label="Your email"

@@ -25,12 +25,12 @@ function Login() {
   };
 
   return (
-    <div className="grid place-items-center h-screen bg-blue-200">
+    <div className="grid place-items-center h-screen bg-gray-200">
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 min-w-[50vw] bg-blue-400 p-5 rounded"
+        className="space-y-6 min-w-[50vw] text-white bg-gray-600 p-5 rounded"
       >
-        <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+        <h3 className="text-xl font-medium text-white">
           Sign in to our platform
         </h3>
         <LabeledInput
