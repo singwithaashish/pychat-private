@@ -1,5 +1,7 @@
 **PyChat** is a simple Chatbot running on open-source LLMs accessed through [Google Colab](https://colab.research.google.com/drive/1BkL7zYVYtn0JPYKMPJ0tJmK-zMtINx0P?usp=sharing&authuser=1#scrollTo=T6oyrr4X0wc2). 
 
+Demo Video URL: https://youtu.be/2ZYo9fmF47s
+
 ## Table of Contents
 - [Installation](#installation)
 - [Technologies](#technologies)
@@ -61,8 +63,9 @@
 - [ ] Add Speech to Text
 
 ## Screenshots
-![Screenshot from 2023-08-22 18-52-03](https://github.com/singwithaashish/pyChat/assets/52033403/fa246e56-628f-4879-9aee-87e1421946f4)
-![Screenshot from 2023-08-22 19-45-23](https://github.com/singwithaashish/pyChat/assets/52033403/38e456fc-ca9a-41ee-bf91-439b36561b74)
-![Screenshot from 2023-08-22 19-45-42](https://github.com/singwithaashish/pyChat/assets/52033403/a61b6637-01a5-45e7-889b-f4c0edf6306b)
+![Screenshot from 2023-08-24 01-06-21](https://github.com/singwithaashish/pychat-private/assets/52033403/01902e5f-6b25-4837-978d-7a9a73a5933e)
+![Screenshot from 2023-08-24 01-07-15](https://github.com/singwithaashish/pychat-private/assets/52033403/bfa8865b-68d3-4171-88d2-b79a669951ff)
+![Screenshot from 2023-08-24 01-07-18](https://github.com/singwithaashish/pychat-private/assets/52033403/db5ba4f2-3e65-4947-afdf-38f0bb9d4103)
+
 
 
