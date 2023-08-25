@@ -14,16 +14,21 @@ Demo Video URL: https://youtu.be/2ZYo9fmF47s
    ```git clone```
 2. Install requirements
     ```cd client && npm install```
-3. Add collab's wss link to `.env` file as `VITE_SOCKET_URL=<your wss URL>`
-4. Run the app
+3. Run the app
     ```npm run dev```
-5. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+4. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+5. navigate to server `cd server` in another terminal
+6. add websocket url to `app.py` as `URI = <websocket url>`
+6. Run the server `python3 app.py`
 
 ## Technologies
 - React
 - TailwindCSS
 - TypeScript
 - Google Colab
+- Python
+- FastAPI
+- Websockets
 
 ## Folder Structure
 ```
@@ -35,13 +40,16 @@ Demo Video URL: https://youtu.be/2ZYo9fmF47s
 │   │   │   ├── chat
 │   │   │   │   ├── TextChatBox.tsx
 │   │   │   │   └── TextMessage.tsx
-│   │   │   ├── layout
-│   │   │   │   ├── Header.tsx
-│   │   │   │   └── LabeledInput.tsx
-│   │   │   └── Pages
-│   │   │       ├── Home.tsx
-│   │   │       ├── Login.tsx
-│   │   │       └── Register.tsx
+│   │   │   └── layout
+│   │   │       ├── Header.tsx
+│   │   │       └── LabeledInput.tsx
+|   |   ├── pages
+│   │   │   ├── Home.tsx
+│   │   │   ├── Login.tsx
+│   │   │   └── Register.tsx
+│   │   ├── app
+│   │   │   ├── store.ts
+│   │   │   └── historySlice.ts
 │   │   ├── App.tsx
 │   │   ├── index.css
 │   │   ├── main.tsx
@@ -52,6 +60,8 @@ Demo Video URL: https://youtu.be/2ZYo9fmF47s
 │   ├── index.html
 │   ├── tsconfig.json
 │   └── README.md
+├── server
+│   └── app.py
 ├── APIExampleChatStream.py
 ├── APIExampleStream.py
 ├── README.md
@@ -59,7 +69,7 @@ Demo Video URL: https://youtu.be/2ZYo9fmF47s
 ```
 
 ## Future Work
-- [ ] Add whisper Text to Speech
+- [x] Add Text to Speech
 - [ ] Add Speech to Text
 
 ## Screenshots

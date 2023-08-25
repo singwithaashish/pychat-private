@@ -21,7 +21,9 @@ export default function TextChatBox({ socket, history }: TextChatBoxProps) {
   const [text, setText] = useState<string>("");
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const dispatch = useDispatch();
-  const currentHistoryIndex = useSelector((state: RootState) => state.history).currentHistoryIndex;
+  const currentHistoryIndex = useSelector(
+    (state: RootState) => state.history
+  ).currentHistoryIndex;
 
   const onMessageSend = () => {
     console.log(history);
@@ -43,7 +45,7 @@ export default function TextChatBox({ socket, history }: TextChatBoxProps) {
     // map all histories into messages
     // console.log("currentHistoryIndex", currentHistoryIndex);
     const messages: Message[] = [];
-    if(history.internal.length === 0) {
+    if (history.internal.length === 0) {
       setMessages([]);
       return;
     }
@@ -62,8 +64,7 @@ export default function TextChatBox({ socket, history }: TextChatBoxProps) {
       });
     });
     setMessages(messages);
-  }
-  , [currentHistoryIndex]);
+  }, [currentHistoryIndex]);
 
   useEffect(() => {
     // This will run every time the `chat` state changes
@@ -79,8 +80,9 @@ export default function TextChatBox({ socket, history }: TextChatBoxProps) {
       alert("You have reached the message limit");
       return;
     }
-
+    console.log("text", text);
     if (!socket) return;
+    console.log("text", text);
 
     // history.internal.push([text, ""]);
     // history.visible.push([text, ""]);
@@ -100,6 +102,7 @@ export default function TextChatBox({ socket, history }: TextChatBoxProps) {
       createdAt: new Date(),
       sender: "bot",
     };
+    console.log("lastMessage", lastMessage);
     socket.onmessage = (e) => {
       const res = JSON.parse(e.data);
 
@@ -127,7 +130,7 @@ export default function TextChatBox({ socket, history }: TextChatBoxProps) {
         {messages.length === 0 && (
           <p className="text-center text-gray-400 font-bold">no messages yet</p>
         )}
-        
+
         <div ref={messagesEndRef} />
       </div>
       <form
