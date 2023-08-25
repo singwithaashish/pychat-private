@@ -43,7 +43,7 @@ Demo Video URL: https://youtu.be/2ZYo9fmF47s
 │   │   │   └── layout
 │   │   │       ├── Header.tsx
 │   │   │       └── LabeledInput.tsx
-|   |   ├── pages
+│   │   ├── pages
 │   │   │   ├── Home.tsx
 │   │   │   ├── Login.tsx
 │   │   │   └── Register.tsx
