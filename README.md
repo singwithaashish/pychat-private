@@ -1,6 +1,6 @@
 **PyChat** is a simple Chatbot running on open-source LLMs accessed through [Google Colab](https://colab.research.google.com/drive/1BkL7zYVYtn0JPYKMPJ0tJmK-zMtINx0P?usp=sharing&authuser=1#scrollTo=T6oyrr4X0wc2). 
 
-Demo Video URL: https://youtu.be/2ZYo9fmF47s
+Demo Video URL: https://youtu.be/ruk9odCxLr0
 
 ## Table of Contents
 - [Installation](#installation)
