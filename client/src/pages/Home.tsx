@@ -1,15 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/layout/Header";
 import TextChatBox from "../components/chat/TextChatBox";
+import { History } from "../typings";
 
 let socket: WebSocket | null = null;
 
 export default function Home() {
   const [userLoggedIn, setUserLoggedIn] = React.useState<boolean>(false);
   const [socketConnected, setSocketConnected] = React.useState<boolean>(false);
+  const [history, setHistory] = useState<History[]>([
+    {
+      internal: [
+        "Barbie vs. Oppenheimer",
+      ]
+    }
+  ]);
   const [selectedChat, setSelectedChat] = React.useState<number>(0);
 
-  const history = ["How to launch a rocket", "CIA and Barbie", "Three Aliens"]; // just a list of strings for mockup
   useEffect(() => {
     if (!localStorage.getItem("user-token")) {
       window.location.href = "/login";
@@ -45,7 +52,7 @@ export default function Home() {
         {/* Right TTS and STT box */}
         <div className=" col-span-1 h-full bg-gray-600 ">
           {/* list all chat Histories */}
-          {history.map((chat, index) => (
+          {history.map((internal, index) => (
             <div
               className={
                 "flex items-center gap-x-3 p-5  mb-2 mx-2 duration-300 hover:bg-gray-50 cursor-pointer rounded  " +
@@ -63,7 +70,7 @@ export default function Home() {
               >
                 <path d="M19 2H5c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3.586L12 21.414 15.414 18H19c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14h-4.414L12 18.586 9.414 16H5V4h14v12z" />
               </svg>
-              <p className="text-xl font-medium">{chat}</p>
+              <p className="text-xl font-medium">{internal.internal[0]}</p>
             </div>
           ))}
 

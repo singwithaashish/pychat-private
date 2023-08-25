@@ -4,3 +4,7 @@ export type Message = {
     createdAt: Date;
     sender: string;
     };
+
+    export type History = {
+        internal: string[];
+    };
