@@ -1,82 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import TextMessage from "./TextMessage";
 import { History, Message } from "../../typings";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCurrentHistory } from "../../app/historySlice";
+import { RootState } from "../../app/store";
 
 interface TextChatBoxProps {
   socket: WebSocket | null;
-  // history: History;
+  history: History;
 }
 
 // let socket: WebSocket | null = null;
-let history = {
-  internal: [],
-  // visible: [],
-} as any;
+// let history = {
+//   internal: [],
+//   // visible: [],
+// } as any;
 
-export default function TextChatBox({ socket }: TextChatBoxProps) {
+export default function TextChatBox({ socket, history }: TextChatBoxProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [text, setText] = useState<string>("");
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
+  const dispatch = useDispatch();
+  const currentHistoryIndex = useSelector((state: RootState) => state.history).currentHistoryIndex;
 
   const onMessageSend = () => {
     console.log(history);
     try {
-      // const thisMessage = {
-      //   prompt: `###JSON of Previous conversation: ${JSON.stringify(history)} ### User message: ${text} ### Response:`,
-      //   // prompt: `###Give appropriate response, ${JSON.stringify(history)}`,
-      //   history: history,
-      //   max_new_tokens: 250,
-      //   auto_max_new_tokens: false,
-      //   mode: "chat-instruct", // Valid options: 'chat', 'chat-instruct', 'instruct'
-      //   character: "Example",
-      //   instruction_template: "Vicuna-v1.1", // Will get autodetected if unset
-      //   your_name: "User",
-      //   // 'name1': 'name of user', // Optional
-      //   // 'name2': 'name of character', // Optional
-      //   // 'context': 'character context', // Optional
-      //   // 'greeting': 'greeting', // Optional
-      //   // 'name1_instruct': 'You', // Optional
-      //   // 'name2_instruct': 'Assistant', // Optional
-      //   // 'context_instruct': 'context_instruct', // Optional
-      //   turn_template: "turn_template", // Optional
-      //   regenerate: false,
-      //   _continue: false,
-      //   chat_instruct_command:
-      //     'Write a single reply to the user\'s query below. Only give onc answer "<|character|>".\n\n<|prompt|>',
-
-      //   do_sample: true,
-      //   preset: "None",
-      //   top_p: 0.1,
-      //   temperature: 0.7,
-      //   epsilon_cutoff: 0,
-      //   typical_p: 1,
-      //   tfs: 1,
-      //   eta_cutoff: 0,
-      //   repetition_penalty: 1.18,
-      //   top_a: 0,
-      //   top_k: 40,
-      //   repetition_penalty_range: 0,
-      //   no_repeat_ngram_size: 0,
-      //   min_length: 0,
-      //   penalty_alpha: 0,
-      //   num_beams: 1,
-      //   early_stopping: false,
-      //   length_penalty: 1,
-      //   mirostat_tau: 5,
-      //   mirostat_mode: 0,
-      //   guidance_scale: 1,
-      //   mirostat_eta: 0.1,
-
-      //   negative_prompt: "",
-      //   // add_bos_token: true,
-      //   seed: -1,
-      //   ban_eos_token: false,
-      //   truncation_length: 2048,
-      //   stopping_strings: [],
-      //   skip_special_tokens: true,
-      // };
-      // console.log("thisMessage");
-
       const thisMessage = {
         message: `###JSON of Previous conversation: ${JSON.stringify(
           history
@@ -89,6 +38,32 @@ export default function TextChatBox({ socket }: TextChatBoxProps) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    // map all histories into messages
+    // console.log("currentHistoryIndex", currentHistoryIndex);
+    const messages: Message[] = [];
+    if(history.internal.length === 0) {
+      setMessages([]);
+      return;
+    }
+    history.internal.forEach((message) => {
+      messages.push({
+        id: messages.length,
+        text: message ? message[0] : "",
+        createdAt: new Date(),
+        sender: "user",
+      });
+      messages.push({
+        id: messages.length,
+        text: message ? message[1] : "",
+        createdAt: new Date(),
+        sender: "bot",
+      });
+    });
+    setMessages(messages);
+  }
+  , [currentHistoryIndex]);
 
   useEffect(() => {
     // This will run every time the `chat` state changes
@@ -107,7 +82,7 @@ export default function TextChatBox({ socket }: TextChatBoxProps) {
 
     if (!socket) return;
 
-    history.internal.push([text, ""]);
+    // history.internal.push([text, ""]);
     // history.visible.push([text, ""]);
 
     const message: Message = {
@@ -135,7 +110,8 @@ export default function TextChatBox({ socket }: TextChatBoxProps) {
         setMessages([...messages, message, lastMessage]);
       } else if (res.event === "stream_end") {
         // setMessages([...messages, message, lastMessage]);
-        history.internal[history.internal.length - 1][1] = lastMessage.text;
+        // history.internal[history.internal.length - 1][1] = lastMessage.text;
+        dispatch(addToCurrentHistory([text, lastMessage.text]));
         // history.visible[history.internal.length - 1][1] = lastMessage.text;
       }
     };
@@ -151,6 +127,7 @@ export default function TextChatBox({ socket }: TextChatBoxProps) {
         {messages.length === 0 && (
           <p className="text-center text-gray-400 font-bold">no messages yet</p>
         )}
+        
         <div ref={messagesEndRef} />
       </div>
       <form

@@ -2,20 +2,18 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/layout/Header";
 import TextChatBox from "../components/chat/TextChatBox";
 import { History } from "../typings";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../app/store";
+import { addHistory, setCurrentHistoryIndex } from "../app/historySlice";
 
 let socket: WebSocket | null = null;
 
 export default function Home() {
   const [userLoggedIn, setUserLoggedIn] = React.useState<boolean>(false);
   const [socketConnected, setSocketConnected] = React.useState<boolean>(false);
-  const [history, setHistory] = useState<History[]>([
-    {
-      internal: [
-        "Barbie vs. Oppenheimer",
-      ]
-    }
-  ]);
-  const [selectedChat, setSelectedChat] = React.useState<number>(0);
+  const histories = useSelector((state: RootState) => state.history);
+  // const [selectedChat, setSelectedChat] = React.useState<number>(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!localStorage.getItem("user-token")) {
@@ -41,6 +39,14 @@ export default function Home() {
     };
   }, [socketConnected]);
 
+  const createNewChat = () => {
+    const newHistory: History = {
+      internal: [],
+      // visible: [],
+    };
+    dispatch(addHistory(newHistory));
+  }
+
   if (!userLoggedIn) return <div>loading...</div>;
 
   return (
@@ -48,20 +54,20 @@ export default function Home() {
       <Header isOnline={socketConnected} />
       <main className="w-full h-[90%] bg-blue-100 grid grid-cols-3">
         {/* left text to text chat */}
-        <TextChatBox socket={socket} />
+        <TextChatBox socket={socket} history={histories.histories[histories.currentHistoryIndex]} />
         {/* Right TTS and STT box */}
-        <div className=" col-span-1 h-full bg-gray-600 ">
+        <div className=" col-span-1 h-full overflow-y-scroll bg-gray-600 ">
           {/* list all chat Histories */}
-          {history.map((internal, index) => (
+          {histories.histories.map((internal, index) => (
             <div
               className={
                 "flex items-center gap-x-3 p-5  mb-2 mx-2 duration-300 hover:bg-gray-50 cursor-pointer rounded  " +
-                (index === selectedChat
+                (index === histories.currentHistoryIndex
                   ? "rounded-l-none bg-gray-100 ml-0"
                   : " bg-gray-200")
               }
               key={index}
-              onClick={() => setSelectedChat(index)}
+              onClick={() => dispatch(setCurrentHistoryIndex(index))}
             >
               <svg
                 viewBox="0 0 24 24"
@@ -70,11 +76,11 @@ export default function Home() {
               >
                 <path d="M19 2H5c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3.586L12 21.414 15.414 18H19c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14h-4.414L12 18.586 9.414 16H5V4h14v12z" />
               </svg>
-              <p className="text-xl font-medium">{internal.internal[0]}</p>
+              <p className="text-xl font-medium">{internal.internal[0] ?? `New Chat ${index}`}</p>
             </div>
           ))}
 
-          <div className="flex items-center gap-x-3 p-5 bg-gray-200 mb-2 mx-2 rounded ">
+          <div className="flex items-center gap-x-3 p-5 bg-gray-200 mb-2 mx-2 rounded cursor-pointer hover:shadow-lg hover:bg-gray-50 duration-200 " onClick={() => createNewChat()}>
             <svg
               viewBox="0 0 1024 1024"
               fill="currentColor"

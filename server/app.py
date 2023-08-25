@@ -12,7 +12,7 @@ except ImportError:
     print("Websockets package not found. Make sure it's installed.")
 
 
-URI = "wss://explosion-housing-reynolds-iii.trycloudflare.com/api/v1/stream"
+URI = "wss://priority-departure-coming-finland.trycloudflare.com/api/v1/stream"
 
 app = FastAPI()
 
