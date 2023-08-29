@@ -12,11 +12,30 @@ function Register() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
+    if (password !== confPassword) {
+      alert("Password and confirm password do not match");
+      setLoading(false);
+      return;
+    }
     // set the token 
-    localStorage.setItem("token", JSON.stringify({
-      email,
-      password,
-    }));
+    const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email, password
+      })
+    })
+    const data = await res.json();
+
+    if(!data.token){
+      alert("Something went wrong while registering");
+      setLoading(false);
+      return;
+    }
+    
+    localStorage.setItem("token", data.token);
     // redirect to home page
     window.location.href = "/";
 

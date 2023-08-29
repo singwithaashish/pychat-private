@@ -16,7 +16,7 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!localStorage.getItem("user-token")) {
+    if (!localStorage.getItem("token")) {
       window.location.href = "/login";
     } else {
       setUserLoggedIn(true);
@@ -24,8 +24,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!localStorage.getItem("user-token") || socketConnected) return;
-    socket = new WebSocket(import.meta.env.VITE_SOCKET_URL as string);
+    if (!localStorage.getItem("token") || socketConnected) return;
+    socket = new WebSocket(`${import.meta.env.VITE_SOCKET_URL as string}?token=${localStorage.getItem("token") as string}`);
     socket.onopen = () => {
       console.log("Connected to server");
       setSocketConnected(true);

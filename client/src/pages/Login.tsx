@@ -9,16 +9,25 @@ function Login() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const token = JSON.stringify({
-      email,
-      password,
-    });
+    const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email, password
+      })
+    })
+    const data = await res.json();
 
-    if (token === localStorage.getItem("token")) {
-      localStorage.setItem("user-token", token);
-      window.location.href = "/";
+    if(!data.token){
+      alert("Something went wrong while logging in");
       return;
     }
+
+    localStorage.setItem("token", data.token);
+    // redirect to home page
+    window.location.href = "/";
     // otherwise, alert the user
     alert("Wrong email or password");
     

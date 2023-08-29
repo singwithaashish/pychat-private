@@ -2,7 +2,7 @@ export default function Header(
   {isOnline}: {isOnline: boolean}
 ) {
   const logOut = () => {
-    localStorage.removeItem("user-token");
+    localStorage.removeItem("token");
     window.location.href = "/login";
   };
   return (

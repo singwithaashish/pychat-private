@@ -143,7 +143,13 @@ export default function TextChatBox({ socket, history }: TextChatBoxProps) {
           onChange={(e) => setText(e.target.value)}
           required
           placeholder="Enter your text"
-          className="bg-white px-5 shadow rounded-lg col-span-10"
+          className="bg-white px-5 shadow rounded-lg col-span-9"
+        />
+        <input
+          type="file"
+          className="col-span-1"
+          accept="audio/*"
+          // onChange={(e) => setFile(e.target.files![0])}
         />
         <button
           type="submit"
