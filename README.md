@@ -73,7 +73,12 @@ Demo Video URL: https://youtu.be/ruk9odCxLr0
 - [ ] Add Speech to Text
 
 ## Screenshots
-![Screenshot from 2023-08-24 01-06-21](https://github.com/singwithaashish/pychat-private/assets/52033403/01902e5f-6b25-4837-978d-7a9a73a5933e)
+![Screenshot from 2023-08-26 10-54-42](https://github.com/singwithaashish/pychat-private/assets/52033403/4c407d7f-9602-4ae3-aa8d-391bea1b41af)
+
+![Screenshot from 2023-08-26 10-50-39](https://github.com/singwithaashish/pychat-private/assets/52033403/81e9d3e1-0697-4560-92fd-e6478f483f23)
+![Screenshot from 2023-08-26 10-50-21](https://github.com/singwithaashish/pychat-private/assets/52033403/3d8e910b-a64b-41e2-b04d-09a4b625d211)
+
+
 ![Screenshot from 2023-08-24 01-07-15](https://github.com/singwithaashish/pychat-private/assets/52033403/bfa8865b-68d3-4171-88d2-b79a669951ff)
 ![Screenshot from 2023-08-24 01-07-18](https://github.com/singwithaashish/pychat-private/assets/52033403/db5ba4f2-3e65-4947-afdf-38f0bb9d4103)
 
