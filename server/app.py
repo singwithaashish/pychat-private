@@ -152,24 +152,7 @@ async def text_to_speech(request: Request):
     return StreamingResponse(audio_stream, media_type="audio/mpeg")
 
 
-# use whisper api to get text from audio, incoming form-data
-@app.post("/api/speech-to-text")
-async def speech_to_text(request: Request, file: UploadFile = File(...)):
-    try:
-        print("Request received")
-        resp = await request.json()
-        print(resp)
-        audio = resp["audio"]
-        language = "en-US"
-        print("Converting audio to text...")
-        text = openai.SpeechToText.create(
-            audio=audio, min_length=1, max_length=60, engine="davinci", language=language
-        )
-        print(text)
-        return text
-    except Exception as e:
-        print(e)
-        return {"error": "Something went wrong"}
+
 
 
 # register user on mongodb
