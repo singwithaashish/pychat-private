@@ -19,7 +19,8 @@ Demo Video URL: https://youtu.be/ruk9odCxLr0
 4. Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
 5. navigate to server `cd server` in another terminal
 6. add websocket url to `app.py` as `URI = <websocket url>`
-6. Run the server `python3 app.py`
+    - `source ./env/bin/activate` to activate virtual environment
+6. Run the server `uvicorn app:app --reload`
 
 ## Technologies
 - React

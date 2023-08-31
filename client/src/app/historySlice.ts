@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { History } from "../typings";
+import { Character, History } from "../typings";
 
 export interface HistoryState {
   histories: History[];
@@ -12,7 +12,8 @@ const initialState: HistoryState = {
     {
         internal: [
             
-        ]
+        ],
+        character: null,
     }
   ],
   currentHistoryIndex: 0,
@@ -35,11 +36,14 @@ export const historySlice = createSlice({
     addToCurrentHistory: (state, action: PayloadAction<string[]>) => {
       state.histories[state.currentHistoryIndex].internal.push(action.payload)
     },
+    setCharacter: (state, action: PayloadAction<Character>) => {
+      state.histories[state.currentHistoryIndex].character = action.payload
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addHistory, setCurrentHistoryIndex, removeHistory, addToCurrentHistory } =
+export const { addHistory, setCurrentHistoryIndex, removeHistory, addToCurrentHistory, setCharacter } =
   historySlice.actions;
 
 export default historySlice.reducer;

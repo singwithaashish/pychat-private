@@ -5,6 +5,7 @@ import { History } from "../typings";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
 import { addHistory, setCurrentHistoryIndex } from "../app/historySlice";
+import { characters } from "../assets/characters";
 
 let socket: WebSocket | null = null;
 
@@ -42,7 +43,7 @@ export default function Home() {
   const createNewChat = () => {
     const newHistory: History = {
       internal: [],
-      // visible: [],
+      character: characters[0]
     };
     dispatch(addHistory(newHistory));
   }

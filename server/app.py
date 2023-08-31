@@ -23,7 +23,7 @@ except ImportError:
 
 
 
-URI = "wss://lost-sector-take-slowly.trycloudflare.com/api/v1/stream"
+URI = "wss://officially-pc-skiing-households.trycloudflare.com/api/v1/stream"
 
 # connect to mongodb
 client = pymongo.MongoClient("mongodb+srv://singwithaashish:root0000@cluster0.ovptt.mongodb.net/fiverr_travel_app?retryWrites=true&w=majority")

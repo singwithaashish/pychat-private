@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import TextMessage from "./TextMessage";
-import { History, Message } from "../../typings";
+import { Character, History, Message } from "../../typings";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCurrentHistory } from "../../app/historySlice";
+import { addToCurrentHistory, setCharacter } from "../../app/historySlice";
 import { RootState } from "../../app/store";
+import { characters } from "../../assets/characters";
 
 interface TextChatBoxProps {
   socket: WebSocket | null;
@@ -25,12 +26,15 @@ export default function TextChatBox({ socket, history }: TextChatBoxProps) {
     (state: RootState) => state.history
   ).currentHistoryIndex;
 
+ 
+
   const onMessageSend = () => {
     console.log(history);
     try {
       const thisMessage = {
-        message: `###JSON of Previous conversation: ${JSON.stringify(
-          history
+        message: `### You are ${history.character?.name} and Your Personality is: ${history.character?.background}
+        ###JSON of Previous conversation: ${JSON.stringify(
+          history.internal
         )} ### User message: ${text} ### Response:`,
       };
       if (!socket) return;
@@ -128,7 +132,36 @@ export default function TextChatBox({ socket, history }: TextChatBoxProps) {
           <TextMessage key={message.id} message={message} />
         ))}
         {messages.length === 0 && (
-          <p className="text-center text-gray-400 font-bold">no messages yet</p>
+          <>
+            <p className="text-center text-gray-400 font-bold">
+              Please select a character you'd wanna chat with
+            </p>
+            <div className="flex gap-x-5">
+              {characters.map((character, i) => (
+                <div
+                  className={
+                    "flex flex-col gap-y-2 " +
+                    (history.character?.id === character.id
+                      ? " border-2 border-red bg-red-100"
+                      : "")
+                  }
+                  key={i}
+                  onClick={() => {
+                    dispatch(setCharacter(character));
+                  }}
+                >
+                  <img
+                    src={character.image}
+                    alt=""
+                    className="w-20 h-20 rounded-full"
+                  />
+                  <p className="text-center text-gray-400 font-bold">
+                    {character.name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </>
         )}
 
         <div ref={messagesEndRef} />

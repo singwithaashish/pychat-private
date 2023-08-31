@@ -5,9 +5,20 @@ export type Message = {
   sender: string;
 };
 
+export type Character = {
+  id: number;
+  name: string;
+  image: string;
+  background: string;
+};
+
 export type History = {
   internal: [
     // optional array of strings 
         string[]?
   ];
+  character: Character | null;
 };
+
+
+
